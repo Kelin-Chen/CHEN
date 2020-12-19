@@ -1,0 +1,139 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int row, column;
+int counts(int i, int j, vector<vector<bool>>arr);
+vector<vector<int>>getcounts(vector<vector<bool>>& boolarry);
+void main()
+{
+
+	cin >> row >> column;
+	vector<vector<bool>>boolarry;
+	vector<bool>v;
+	srand(time(0));
+	for (int i = 0; i < row; i++)
+	{
+		v.clear();
+		for (int j = 0; j < column; j++)
+		{
+			v.push_back(rand() % 2);
+		}
+		boolarry.push_back(v);
+	}
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < column; j++)
+		{
+			cout << boolarry[i][j] << '\t';
+		}
+		cout << endl<<endl;
+	}
+	vector<vector<int>>intarry=getcounts(boolarry);
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < column; j++)
+		{
+			cout << intarry[i][j] << '\t';
+		}
+		cout << endl << endl;
+	}
+
+}
+
+
+int counts(int i, int j, vector<vector<bool>>arr)
+{
+	int count = 0;
+	if (i > 0 && i < row && j>0 && j < column)
+	{
+		for (int q = i - 1; q <= i + 1; q++)
+		{
+			for (int p = j - 1; p <= j + 1; j++)
+			{
+				if (arr[q][p] == 1)count++;
+			}
+		}
+		return count;
+	}
+	else if (i == 0)
+	{
+		if (j == 0)
+		{
+			for (int q = i; q <= i + 1; q++)
+			{
+				for (int p = j; p <= j + 1; j++)
+				{
+					if (arr[q][p] == 1)count++;
+				}
+			}
+		}
+		else if (j == column)
+		{
+			for (int q = i; q <= i + 1; q++)
+			{
+				for (int p = j - 1; p <= j; j++)
+				{
+					if (arr[q][p] == 1)count++;
+				}
+			}
+		}
+		else
+		{
+			for (int q = i; q <= i + 1; q++)
+			{
+				for (int p = j - 1; p <= j + 1; j++)
+				{
+					if (arr[q][p] == 1)count++;
+				}
+			}
+		}return count;
+	} //i==0时
+	else if (i == row)
+	{
+		if (j == 0)
+		{
+			for (int q = i - 1; q <= i; q++)
+			{
+				for (int p = j; p <= j + 1; j++)
+				{
+					if (arr[q][p] == 1)count++;
+				}
+			}
+		}
+		else if (j == column)
+		{
+			for (int q = i - 1; q <= i; q++)
+			{
+				for (int p = j - 1; p <= j; j++)
+				{
+					if (arr[q][p] == 1)count++;
+				}
+			}
+		}
+		else
+		{
+			for (int q = i - 1; q <= i; q++)
+			{
+				for (int p = j - 1; p <= j + 1; j++)
+				{
+					if (arr[q][p] == 1)count++;
+				}
+			}
+		}return count;
+	}//i==row时
+}
+vector<vector<int>>getcounts(vector<vector<bool>>& boolarry)
+{
+	vector<vector<int>>intarry;
+	vector<int>v1;
+	for (int i = 0; i < row; i++)
+	{
+		v1.clear();
+		for (int j = 0; j < column; j++)
+		{
+			v1.push_back(counts(row, column, boolarry));
+		}
+		intarry.push_back(v1);
+	}
+	return intarry;
+}
