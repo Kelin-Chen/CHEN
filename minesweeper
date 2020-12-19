@@ -46,10 +46,10 @@ int counts(int i, int j, vector<vector<bool>>arr)
 	int count = 0;
 	for (int p = i-1; p <= i + 1; p++)
 	{
-		if (p < 0 && p > row - 1)continue;
+		if (p < 0 || p > row - 1)continue;
 		for (int q = j-1; q <= j + 1; q++)
 		{
-			if (q < 0 && q > column - 1)continue;
+			if (q < 0 || q > column - 1)continue;
 			if (arr[p][q] == 1)count++;
         }
 	}
