@@ -10,7 +10,7 @@ void main()
 	cin >> row >> column;
 	vector<vector<bool>>boolarry;
 	vector<bool>v;
-	srand(time(0));
+	srand(time(NULL));
 	for (int i = 0; i < row; i++)
 	{
 		v.clear();
@@ -44,83 +44,16 @@ void main()
 int counts(int i, int j, vector<vector<bool>>arr)
 {
 	int count = 0;
-	if (i > 0 && i < row && j>0 && j < column)
+	for (int p = i-1; p <= i + 1; p++)
 	{
-		for (int q = i - 1; q <= i + 1; q++)
+		if (p < 0 && p > row - 1)continue;
+		for (int q = j-1; q <= j + 1; q++)
 		{
-			for (int p = j - 1; p <= j + 1; j++)
-			{
-				if (arr[q][p] == 1)count++;
-			}
-		}
-		return count;
+			if (q < 0 && q > column - 1)continue;
+			if (arr[p][q] == 1)count++;
+        }
 	}
-	else if (i == 0)
-	{
-		if (j == 0)
-		{
-			for (int q = i; q <= i + 1; q++)
-			{
-				for (int p = j; p <= j + 1; j++)
-				{
-					if (arr[q][p] == 1)count++;
-				}
-			}
-		}
-		else if (j == column)
-		{
-			for (int q = i; q <= i + 1; q++)
-			{
-				for (int p = j - 1; p <= j; j++)
-				{
-					if (arr[q][p] == 1)count++;
-				}
-			}
-		}
-		else
-		{
-			for (int q = i; q <= i + 1; q++)
-			{
-				for (int p = j - 1; p <= j + 1; j++)
-				{
-					if (arr[q][p] == 1)count++;
-				}
-			}
-		}return count;
-	} //i==0时
-	else if (i == row)
-	{
-		if (j == 0)
-		{
-			for (int q = i - 1; q <= i; q++)
-			{
-				for (int p = j; p <= j + 1; j++)
-				{
-					if (arr[q][p] == 1)count++;
-				}
-			}
-		}
-		else if (j == column)
-		{
-			for (int q = i - 1; q <= i; q++)
-			{
-				for (int p = j - 1; p <= j; j++)
-				{
-					if (arr[q][p] == 1)count++;
-				}
-			}
-		}
-		else
-		{
-			for (int q = i - 1; q <= i; q++)
-			{
-				for (int p = j - 1; p <= j + 1; j++)
-				{
-					if (arr[q][p] == 1)count++;
-				}
-			}
-		}return count;
-	}//i==row时
+	return count;
 }
 vector<vector<int>>getcounts(vector<vector<bool>>& boolarry)
 {
@@ -131,7 +64,7 @@ vector<vector<int>>getcounts(vector<vector<bool>>& boolarry)
 		v1.clear();
 		for (int j = 0; j < column; j++)
 		{
-			v1.push_back(counts(row, column, boolarry));
+			v1.push_back(counts(i, j, boolarry));
 		}
 		intarry.push_back(v1);
 	}
